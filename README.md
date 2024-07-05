@@ -1,12 +1,12 @@
 # update_monitor.py
 
-Update Monitor is a Python script designed to automate the process of updating packages on a Linux system, including Pi-hole updates, and sending notifications via Pushover. The script also handles system reboots if necessary.
+`update_monitor.py` is a Python3 script that automates package updates on Linux.
 
 ## Features
 
 - Updates the package list.
 - Checks for available package upgrades.
-- Performs package upgrades.
+- Performs available package upgrades.
 - Updates Pi-hole.
 - Runs `autoremove` to clean up unnecessary packages.
 - Sends notifications via Pushover.
@@ -40,7 +40,8 @@ Update Monitor is a Python script designed to automate the process of updating p
 
 4. Make the script executable:
     ```bash
-    chmod +x update_monitor.py
+    sudo chmod +x update_monitor.py
+    sudo chmod u+s update_monitor.py
     ```
 
 ## Usage
@@ -70,7 +71,7 @@ The script logs its activities to /var/log/update_monitor.log. Make sure the scr
 Ensure that the `PUSHOVER_USER_KEY` and `PUSHOVER_API_TOKEN` environment variables are set correctly.
 
 Notifications will be sent for the following events:
-- When system updates require a reboot.
+- When the system updates require a reboot.
 - When an error occurs during the update process.
 
 ## License
