@@ -64,7 +64,8 @@ export PUSHOVER_API_TOKEN=your_pushover_api_token
 ```
 ## Logging
 
-The script logs its activities to /var/log/update_monitor.log. **NOTE: Make sure the script has the appropriate permissions to write to this file.**
+The script logs its activities to /var/log/update_monitor.log.
+**NOTE:** Make sure the script has the appropriate __permissions__ to write to this file.
 ```bash
 sudo touch /var/log/update_monitor.log
 sudo chown user:user /var/log/update_monitor.log
