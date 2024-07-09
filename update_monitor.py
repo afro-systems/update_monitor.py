@@ -11,18 +11,18 @@ logging.basicConfig(filename='/var/log/update_monitor.log', level=logging.INFO,
                     format='%(asctime)s %(levelname)s:%(message)s')
 
 # Read Pushover configuration from environment variables
-PUSHOVER_USER_KEY = os.getenv('PUSHOVER_USER_KEY')
-PUSHOVER_API_TOKEN = os.getenv('PUSHOVER_API_TOKEN')
+PUSHOVER_USER_KEY = os.environ.get('PUSHOVER_USER_KEY')
+PUSHOVER_API_TOKEN = os.environ.get('PUSHOVER_API_TOKEN')
 PUSHOVER_URL = 'https://api.pushover.net/1/messages.json'
 
 if not PUSHOVER_USER_KEY or not PUSHOVER_API_TOKEN:
-    raise ValueError("Update Monitor] Pushover user key and API token must be set as environment variables.")
+    raise ValueError("Pushover user key and API token must be set as environment variables.")
 
 def run_command(command):
     """Run a shell command and return the output."""
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     if result.returncode != 0:
-        raise Exception(f"Update Monitor] Command failed: {command}\nError: {result.stderr}")
+        raise Exception(f"Command failed: {command}\nError: {result.stderr}")
     return result.stdout
 
 def send_pushover_notification(message):
@@ -68,12 +68,12 @@ def main():
             logging.info("[Update Monitor] No package upgrades available.")
 
     except Exception as e:
-        error_message = f"[Update Monitor] An error occurred: {str(e)}"
+        error_message = f"An error occurred: {str(e)}"
         logging.error(error_message)
         try:
             send_pushover_notification(error_message)
         except Exception as push_error:
-            logging.error(f"[Update Monitor] Failed to send Pushover notification: {str(push_error)}")
+            logging.error(f"Failed to send Pushover notification: {str(push_error)}")
 
 if __name__ == "__main__":
     main()
